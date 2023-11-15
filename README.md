@@ -78,19 +78,13 @@ Solução Proposta:
 
 Relacionamentos:
 
-Aluno - Matrícula (Relacionamento 1 para 1): Um aluno pode ter no máximo uma matrícula, e uma matrícula pertence a apenas um aluno.
-
-Professor - Disciplina (Relacionamento Muitos para Muitos): Um professor pode lecionar várias disciplinas, e uma disciplina pode ser lecionada por vários professores.
-
-Turma - Disciplina (Relacionamento Muitos para 1): Uma turma está associada a apenas uma disciplina, mas uma disciplina pode ter várias turmas.
-
-Nota - Aluno (Relacionamento Muitos para Muitos): Um aluno pode ter várias notas, e uma nota está associada a vários alunos (pode ser uma nota coletiva para toda a turma).
-
-Nota - Disciplina (Relacionamento Muitos para 1): Uma nota está associada a apenas uma disciplina, mas uma disciplina pode ter várias notas (notas de diferentes avaliações).
-
-Presença - Aluno (Relacionamento Muitos para Muitos): Um aluno pode ter várias presenças registradas, e uma presença está associada a vários alunos (pode ser uma presença coletiva para toda a turma).
-
-Presença - Turma (Relacionamento 1 para Muitos): Uma presença está associada a apenas uma turma, mas uma turma pode ter várias presenças registradas em diferentes datas.
+- Aluno - Matrícula (Relacionamento 1 para 1): Um aluno pode ter no máximo uma matrícula, e uma matrícula pertence a apenas um aluno.
+- Professor - Disciplina (Relacionamento Muitos para Muitos): Um professor pode lecionar várias disciplinas, e uma disciplina pode ser lecionada por vários professores.
+- Turma - Disciplina (Relacionamento Muitos para 1): Uma turma está associada a apenas uma disciplina, mas uma disciplina pode ter várias turmas.
+- Nota - Aluno (Relacionamento Muitos para Muitos): Um aluno pode ter várias notas, e uma nota está associada a vários alunos (pode ser uma nota coletiva para toda a turma).
+- Nota - Disciplina (Relacionamento Muitos para 1): Uma nota está associada a apenas uma disciplina, mas uma disciplina pode ter várias notas (notas de diferentes avaliações).
+- Presença - Aluno (Relacionamento Muitos para Muitos): Um aluno pode ter várias presenças registradas, e uma presença está associada a vários alunos (pode ser uma presença coletiva para toda a turma).
+- Presença - Turma (Relacionamento 1 para Muitos): Uma presença está associada a apenas uma turma, mas uma turma pode ter várias presenças registradas em diferentes datas.
 
 
 ## QUESTÃO 6: ##
