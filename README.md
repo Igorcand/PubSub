@@ -89,37 +89,22 @@ Relacionamentos:
 
 ## QUESTÃO 6: ##
 
-O bloco de código apresenta um método chamado Find que pertence a uma estrutura ou tipo de dados Repository[E]. Vamos analisar o funcionamento do método:
+O bloco de código mostra um método chamado 'Find' que pertence a uma estrutura ou tipo de dados Repository, e esse método recebe alguns parâmetros, como:
+    - ctx, do tipo contextContext
+    - id, do tipo string
+    - table, string
+    - transaction, do tipo Transaction, opcional
 
-Parâmetros:
-    ctx: é um contexto do tipo context.Context que é usado para controlar o tempo de execução da operação.
-    id: é uma string que representa o identificador da entidade a ser recuperada do banco de dados.
-    table: é uma string que representa o nome da tabela do banco de dados na qual a busca será realizada.
-    transaction: é um parâmetro opcional do tipo Transaction[sqlx.Tx, sqlx.DB], que parece ser usado para uma transação de banco de dados. Se for nulo, uma conexão de leitura padrão será usada.
+O método controi uma consulta SQL usando a função fmt.Sprintf para formatar a string da consulta. Dependendo da transação, se for bem sucedida ou não, a consulta éexecutada usando a transação ou uma 
+uma conexão de leitura padrão. O método verifica se houve algum erro ao escanear a linha resultante da consulta para a estrutura entity usando row.StructScan(&entity). Se ocorrer um erro, o método verifica se é um erro indicando que a consulta não retornou resultados (stdsql.ErrNoRows). Se for esse o caso, o método retorna nil, nil, indicando que a entidade não foi encontrada. Caso contrário, o método retorna nil, err. Se a consulta for bem-sucedida, o método retorna um ponteiro para a entidade recuperada e nil para o erro.
 
-Criação da consulta SQL:
-    O método constrói uma consulta SQL utilizando a função fmt.Sprintf para formatar a string da consulta. Ela usa a lista de campos obtida pelo método GetFields da instância do tipo Repository[E].
 
-Execução da consulta:
-    Dependendo se uma transação foi fornecida ou não, a consulta é executada usando a transação ou uma conexão de leitura padrão. O resultado é armazenado em um objeto sqlx.Row.
+Possíveis problemas no código:
+    - Segurança contra Injeção de SQL: O código utiliza a concatenação de strings para construir a consulta SQL, o que pode ser propenso a ataques de injeção de SQL. Recomenda-se o uso de parâmetros de consulta preparados ou a função Queryx de sqlx que lida automaticamente com isso.
 
-Verificação de erro:
-    O método verifica se houve algum erro ao escanear a linha resultante da consulta para a estrutura entity usando row.StructScan(&entity). Se ocorrer um erro, o método verifica se é um erro indicando que a consulta não retornou resultados (stdsql.ErrNoRows). Se for esse o caso, o método retorna nil, nil, indicando que a entidade não foi encontrada. Caso contrário, o método retorna nil, err.
+    - Tratamento de Erros: O código assume que qualquer erro durante o StructScan é devido à ausência de linhas (ErrNoRows). No entanto, outros erros também podem ocorrer, e seria útil logar ou lidar de forma diferente com esses erros para uma melhor depuração.
 
-Retorno da entidade encontrada:
-    Se a consulta for bem-sucedida, o método retorna um ponteiro para a entidade recuperada e nil para o erro.
+    - Conversão de ID para String na Consulta SQL: A concatenação direta de id na string da consulta SQL pode resultar em problemas se id não for uma string. Deve-se garantir que id seja convertido corretamente para uma string na consulta SQL.
 
-Agora, vamos identificar possíveis problemas (bugs) no código:
-
-Segurança contra Injeção de SQL:
-    O código utiliza a concatenação de strings para construir a consulta SQL, o que pode ser propenso a ataques de injeção de SQL. Recomenda-se o uso de parâmetros de consulta preparados ou a função Queryx de sqlx que lida automaticamente com isso.
-
-Tratamento de Erros:
-    O código assume que qualquer erro durante o StructScan é devido à ausência de linhas (ErrNoRows). No entanto, outros erros também podem ocorrer, e seria útil logar ou lidar de forma diferente com esses erros para uma melhor depuração.
-
-Conversão de ID para String na Consulta SQL:
-    A concatenação direta de id na string da consulta SQL pode resultar em problemas se id não for uma string. Deve-se garantir que id seja convertido corretamente para uma string na consulta SQL.
-
-Gestão de Conexão:
-    O método usa uma conexão de leitura padrão se não for fornecida uma transação. A gestão de conexões pode ser complexa, e seria útil garantir que as conexões sejam adequadamente abertas e fechadas para evitar vazamentos de recursos.
+    - Gestão de Conexão: O método usa uma conexão de leitura padrão se não for fornecida uma transação. A gestão de conexões pode ser complexa, e seria útil garantir que as conexões sejam adequadamente abertas e fechadas para evitar vazamentos de recursos.
 
