@@ -72,55 +72,30 @@ Analisando o cenário proposto, há algumas potenciais vulnerabilidades de segur
 
 ## QUESTÃO 5: ##
 
-Vamos criar um diagrama entidade-relacionamento (DER) seguindo as premissas fornecidas. Como domínio de exemplo, vamos considerar um sistema de gerenciamento de uma biblioteca. Aqui está um resumo do domínio:
-
-    Tabelas:
-
-    Livro:
-        Atributos: ISBN (chave primária), título, autor, ano_publicacao, editora.
-
-    Autor:
-        Atributos: AutorID (chave primária), nome, nacionalidade.
-
-    Editora:
-        Atributos: EditoraID (chave primária), nome, local.
-
-    Usuário:
-        Atributos: UserID (chave primária), nome, sobrenome, endereço, e-mail.
-
-    Empréstimo:
-        Atributos: EmpréstimoID (chave primária), data_empréstimo, data_devolução, status (por exemplo, pendente, devolvido).
-
-    Categoria:
-        Atributos: CategoriaID (chave primária), nome.
-
-    LivroCategoria:
-        Atributos: ISBN (chave estrangeira referenciando Livro), CategoriaID (chave estrangeira referenciando Categoria).
+    ![Image](./img/db_relations.png)
 
     Relacionamentos:
 
-    Livro - Autor (Relacionamento 1 para Muitos):
-        Um autor pode ter escrito vários livros, mas um livro é escrito por apenas um autor.
+    Aluno - Matrícula (Relacionamento 1 para 1): OK
+        Um aluno pode ter no máximo uma matrícula, e uma matrícula pertence a apenas um aluno.
 
-    Livro - Editora (Relacionamento Muitos para 1):
-        Uma editora pode publicar vários livros, mas um livro é publicado por apenas uma editora.
+    Professor - Disciplina (Relacionamento Muitos para Muitos):
+        Um professor pode lecionar várias disciplinas, e uma disciplina pode ser lecionada por vários professores.
 
-    Usuário - Empréstimo (Relacionamento 1 para Muitos):
-        Um usuário pode fazer vários empréstimos, mas um empréstimo é feito por apenas um usuário.
+    Turma - Disciplina (Relacionamento Muitos para 1): OK
+        Uma turma está associada a apenas uma disciplina, mas uma disciplina pode ter várias turmas.
 
-    Livro - Empréstimo (Relacionamento Muitos para Muitos):
-        Um livro pode ser emprestado várias vezes, e um empréstimo pode incluir vários livros.
+    Nota - Aluno (Relacionamento Muitos para Muitos):
+        Um aluno pode ter várias notas, e uma nota está associada a vários alunos (pode ser uma nota coletiva para toda a turma).
 
-    Livro - Categoria (Relacionamento Muitos para Muitos):
-        Um livro pode pertencer a várias categorias, e uma categoria pode ter vários livros.
+    Nota - Disciplina (Relacionamento Muitos para 1):
+        Uma nota está associada a apenas uma disciplina, mas uma disciplina pode ter várias notas (notas de diferentes avaliações).
 
-    Empréstimo - LivroCategoria (Relacionamento 1 para 1):
-        Um empréstimo está associado a uma categoria específica de livro (por exemplo, ficção, não ficção).
+    Presença - Aluno (Relacionamento Muitos para Muitos):
+        Um aluno pode ter várias presenças registradas, e uma presença está associada a vários alunos (pode ser uma presença coletiva para toda a turma).
 
-    Usuário - Livro (Relacionamento Muitos para Muitos):
-        Um usuário pode ter vários livros em sua posse, e um livro pode ser possuído por vários usuários.
-
-Este diagrama inclui todos os tipos de relacionamentos possíveis (1 para 1, 1 para muitos, muitos para 1, muitos para muitos) e segue as normas definidas no modelo relacional
+    Presença - Turma (Relacionamento 1 para Muitos):
+        Uma presença está associada a apenas uma turma, mas uma turma pode ter várias presenças registradas em diferentes datas.
 
 
 ## QUESTÃO 6: ##
