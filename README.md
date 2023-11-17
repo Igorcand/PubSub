@@ -2,9 +2,51 @@
 
 ## QUESTÃO 1: ##
 
-O código do roteamento de mensagens foi desenvolvido utilizando 3 classes, uma servindo como Publisher, na qual envia a mensagem para as pessoas inscritas em seu canal, outra como Subscriber, ou seja, a pessoa que deseja receber as mensagens enviadas pelos Publishers, e tambem a classe Gateway, que serve como um roteamento de mensagens para as respectivas filas.
-O projeto foi desenvolvidos sem muitos problemas, e os testes foram criados sem o uso de biblioteca externa, apesar de que a biblioteca Pytest ou a UnitTest do Python são ótimas para desenvolver testes
+### SOBRE ###
+O código do roteamento de mensagens foi desenvolvido utilizando 3 classes, uma servindo como Publisher, na qual envia a mensagem para as pessoas inscritas em seu canal, outra como Subscriber, ou seja, a pessoa que deseja receber as mensagens enviadas pelos Publishers, e tambem a classe Gateway, que serve como um roteamento de mensagens para as respectivas filas. Foi utilizado um arquivo json como banco de dados para salvar as mensagens enviadas por tipo de fila.
+Caso fosse permitido o uso de tecnologias externas, utilizaria o redis como fila para processaras requisições e salvar num banco de dados MongoDB.
+O projeto foi desenvolvidos sem muitos problemas, e os testes foram criados sem o uso de biblioteca externa.
 
+### COMO RODAR O CÓDIGO ###
+```bash
+# Fazer o clone do repositório
+git clone https://github.com/Igorcand/PubSub.git
+
+# Entrar na pasta
+cd PubSub/
+
+# Executar o código
+python run.py
+
+```
+
+![Image](./img/run.png)
+
+Ao executar o exemplo, poderá analisar que existem 3 subscribers que receberam as mensagens (Eduardo, Maria e José) enviadas pelos Publishers (Cifra Club e Palco MP3) as respectiavs mensagens 'É o maior site de ensino de música do Brasil' e 'É o maior serviço de música independente do Brasil' 
+
+
+### COMO RODAR OS TESTES ###
+```bash
+# Fazer o clone do repositório
+git clone https://github.com/Igorcand/PubSub.git
+
+# Entrar na pasta
+cd PubSub/
+
+# Rodar os testes de Publisher
+python test_publisher.py
+
+# Rodar os testes de Subscriber
+python test_subscriber.py
+
+# Rodar os testes de Gateway
+python test_gateway.py
+
+```
+
+Ao executar os testes, se todos estiverem corretos, exibirá um print na tela escrito "All gateway tests were successful", caso haja erro, irá mostrar um erro no terminal
+
+OBS: Existem melhores formas de criar testes unitários utilizando a biblioteca Pytest e a UniTest, porém, está na regra do desafio que é proibido utilizar bibliotecas externas.
 
 ## QUESTÃO 2: ##
 
