@@ -2,7 +2,9 @@
 
 ## QUESTÃO 1: ##
 
-O código da questão 1 está feito no proprio repositório, com funcionalidade e testes prontos
+O código do roteamento de mensagens foi desenvolvido utilizando 3 classes, uma servindo como Publisher, na qual envia a mensagem para as pessoas inscritas em seu canal, outra como Subscriber, ou seja, a pessoa que deseja receber as mensagens enviadas pelos Publishers, e tambem a classe Gateway, que serve como um roteamento de mensagens para as respectivas filas.
+O projeto foi desenvolvidos sem muitos problemas, e os testes foram criados sem o uso de biblioteca externa, apesar de que a biblioteca Pytest ou a UnitTest do Python são ótimas para desenvolver testes
+
 
 ## QUESTÃO 2: ##
 
