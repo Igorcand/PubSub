@@ -216,9 +216,9 @@ Lembre-se de que a escolha das medidas de otimização pode depender da distribu
 ## QUESTÃO 3: ##
 Para atender os requisitios e realizar uma query no banco com milhoes de linhas, seria necessário algumas modificações, como:
 
-    - Adicionar um sistema de cache para armazenar os históricos mais recentes em memória, 
-    - Fazer uma indexação adequada para otimizar a busca de históricos.
-    - Particionar a tabela para não ficar muito grandepara distribuir os dados.
+- Adicionar um sistema de cache para armazenar os históricos mais recentes em memória, 
+- Fazer uma indexação adequada para otimizar a busca de históricos.
+- Particionar a tabela para não ficar muito grandepara distribuir os dados.
 
 
 
@@ -226,11 +226,11 @@ Para atender os requisitios e realizar uma query no banco com milhoes de linhas,
 
 Analisando o cenário proposto, existem potenciais vulnerabilidades de segurança que podem ser identificadas:
 
-    -  Falta de autenticação na visualização de boletos: O fato de qualquer pessoa poder acessar um boleto apenas através do link, sem autenticação, pode representar uma vulnerabilidade. Isso significa que qualquer pessoa que tenha o link pode visualizar informações sensíveis como CPF e endereço, gerando exposição indevida de informações pessoais e financeiras dos clientes, violação de privacidade. Com isso, deve implementar uma autenticação para acessar os boletos, seja por meio de login no site ou por um token seguro no link. Isso garantirá que apenas usuários autorizados tenham acesso aos boletos.
+-  Falta de autenticação na visualização de boletos: O fato de qualquer pessoa poder acessar um boleto apenas através do link, sem autenticação, pode representar uma vulnerabilidade. Isso significa que qualquer pessoa que tenha o link pode visualizar informações sensíveis como CPF e endereço, gerando exposição indevida de informações pessoais e financeiras dos clientes, violação de privacidade. Com isso, deve implementar uma autenticação para acessar os boletos, seja por meio de login no site ou por um token seguro no link. Isso garantirá que apenas usuários autorizados tenham acesso aos boletos.
 
-    - Falta de controle de acesso de como o sistema controla o acesso aos boletos. Se não existir um controle, é possível que um usuário mal-intencionado consiga acessar boletos de outros clientes, manipulando o parâmetro 'id' nos endpoint e acessando informações confidenciais de outros clientes. Para resolver isso deve implementar um sistema, garantindo que cada cliente só possa acessar os boletos associados à sua conta.
+- Falta de controle de acesso de como o sistema controla o acesso aos boletos. Se não existir um controle, é possível que um usuário mal-intencionado consiga acessar boletos de outros clientes, manipulando o parâmetro 'id' nos endpoint e acessando informações confidenciais de outros clientes. Para resolver isso deve implementar um sistema, garantindo que cada cliente só possa acessar os boletos associados à sua conta.
 
-    - Falta de criptografia na comunicação entre o cliente e o servidor. Se a comunicação não for criptografada, as informações podem ser interceptadas por terceiros durante a transmissão. Por isso, deve implementar SSL/TLS para criptografar a comunicação entre o cliente e o servidor, garantindo a segurança dos dados durante a transmissão.
+- Falta de criptografia na comunicação entre o cliente e o servidor. Se a comunicação não for criptografada, as informações podem ser interceptadas por terceiros durante a transmissão. Por isso, deve implementar SSL/TLS para criptografar a comunicação entre o cliente e o servidor, garantindo a segurança dos dados durante a transmissão.
 
 ## QUESTÃO 5: ##
 
@@ -250,21 +250,22 @@ Relacionamentos:
 ## QUESTÃO 6: ##
 
 O bloco de código mostra um método chamado 'Find' que pertence a uma estrutura ou tipo de dados Repository, e esse método recebe alguns parâmetros, como:
-    - ctx, do tipo contextContext
-    - id, do tipo string
-    - table, string
-    - transaction, do tipo Transaction, opcional
+
+- ctx, do tipo contextContext
+- id, do tipo string
+- table, string
+- transaction, do tipo Transaction, opcional
 
 O método controi uma consulta SQL usando a função fmt.Sprintf para formatar a string da consulta. Dependendo da transação, se for bem sucedida ou não, a consulta éexecutada usando a transação ou uma 
 uma conexão de leitura padrão. O método verifica se houve algum erro ao escanear a linha resultante da consulta para a estrutura entity usando row.StructScan(&entity). Se ocorrer um erro, o método verifica se é um erro indicando que a consulta não retornou resultados (stdsql.ErrNoRows). Se for esse o caso, o método retorna nil, nil, indicando que a entidade não foi encontrada. Caso contrário, o método retorna nil, err. Se a consulta for bem-sucedida, o método retorna um ponteiro para a entidade recuperada e nil para o erro.
 
 
 Possíveis problemas no código:
-    - Segurança contra Injeção de SQL: O código utiliza a concatenação de strings para construir a consulta SQL, o que pode ser propenso a ataques de injeção de SQL. Recomenda-se o uso de parâmetros de consulta preparados ou a função Queryx de sqlx que lida automaticamente com isso.
+- Segurança contra Injeção de SQL: O código utiliza a concatenação de strings para construir a consulta SQL, o que pode ser propenso a ataques de injeção de SQL. Recomenda-se o uso de parâmetros de consulta preparados ou a função Queryx de sqlx que lida automaticamente com isso.
 
-    - Tratamento de Erros: O código assume que qualquer erro durante o StructScan é devido à ausência de linhas (ErrNoRows). No entanto, outros erros também podem ocorrer, e seria útil logar ou lidar de forma diferente com esses erros para uma melhor depuração.
+- Tratamento de Erros: O código assume que qualquer erro durante o StructScan é devido à ausência de linhas (ErrNoRows). No entanto, outros erros também podem ocorrer, e seria útil logar ou lidar de forma diferente com esses erros para uma melhor depuração.
 
-    - Conversão de ID para String na Consulta SQL: A concatenação direta de id na string da consulta SQL pode resultar em problemas se id não for uma string. Deve-se garantir que id seja convertido corretamente para uma string na consulta SQL.
+- Conversão de ID para String na Consulta SQL: A concatenação direta de id na string da consulta SQL pode resultar em problemas se id não for uma string. Deve-se garantir que id seja convertido corretamente para uma string na consulta SQL.
 
-    - Gestão de Conexão: O método usa uma conexão de leitura padrão se não for fornecida uma transação. A gestão de conexões pode ser complexa, e seria útil garantir que as conexões sejam adequadamente abertas e fechadas para evitar vazamentos de recursos.
+- Gestão de Conexão: O método usa uma conexão de leitura padrão se não for fornecida uma transação. A gestão de conexões pode ser complexa, e seria útil garantir que as conexões sejam adequadamente abertas e fechadas para evitar vazamentos de recursos.
 
