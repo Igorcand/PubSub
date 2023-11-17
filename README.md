@@ -214,33 +214,12 @@ Lembre-se de que a escolha das medidas de otimização pode depender da distribu
 
 
 ## QUESTÃO 3: ##
-Para atender aos requisitos não funcionais mencionados, algumas modificações significativas devem ser feitas no sistema. Aqui estão algumas sugestões:
+Para atender os requisitios e realizar uma query no banco com milhoes de linhas, seria necessário algumas modificações, como:
 
-Introdução de Cache:
-    Implementar um sistema de cache para armazenar os históricos mais recentes em memória. Isso permitirá que a funcionalidade de histórico seja acessada mesmo quando o banco de dados estiver offline. O cache pode ser implementado usando uma solução de armazenamento em memória, como Redis.
+    - Adicionar um sistema de cache para armazenar os históricos mais recentes em memória, 
+    - Fazer uma indexação adequada para otimizar a busca de históricos.
+    - Particionar a tabela para não ficar muito grandepara distribuir os dados.
 
-Event Sourcing ou Log de Mudanças:
-    Manter um log de mudanças ou usar o padrão de Event Sourcing para registrar todas as alterações nos históricos. Isso permite reconstruir o estado atual do histórico mesmo que o banco de dados esteja offline. As operações de leitura podem ser otimizadas lendo do log em vez de consultar diretamente o banco de dados.
-
-Indexação Adequada:
-    Garantir que o banco de dados esteja devidamente indexado para otimizar a busca de históricos. Considere a possibilidade de indexar campos relevantes para consulta, como user_id e news_id. Isso pode ajudar a reduzir o tempo de busca.
-
-Particionamento da Tabela:
-    Se a tabela de histórico estiver ficando muito grande, considere implementar um esquema de particionamento. Isso pode ajudar a distribuir os dados de maneira mais eficiente e melhorar o desempenho das consultas.
-
-Replicação de Dados:
-    Utilizar replicação de dados para garantir a disponibilidade mesmo em caso de falha de um nó do banco de dados. Isso ajudará a atender à exigência de que nenhuma visita seja perdida no cenário de indisponibilidade dos sistemas de armazenamento.
-
-Tuning do Banco de Dados:
-    Realizar otimizações específicas para o banco de dados em uso. Dependendo do banco de dados escolhido, ajustes de configuração, como tamanho de buffer, caches e índices, podem ser ajustados para melhorar o desempenho. 
-
-Implementação de um Serviço de Busca Rápida:
-    Criar um serviço dedicado para buscar rapidamente os históricos. Esse serviço pode ser otimizado para atender à exigência de tempo de latência inferior a 10ms em 80% dos casos.
-
-Monitoramento Contínuo:
-    Implementar um sistema robusto de monitoramento para rastrear o desempenho do sistema em tempo real. Isso ajudará a identificar gargalos e problemas de desempenho rapidamente. Como o prometheus e o grafana, podem coletar métricas do banco de dados e criar paineis de monitoramento e deshboards personalizados
-
-Essas sugestões visam abordar os requisitos não funcionais, garantindo que a funcionalidade de histórico seja resistente a falhas, responsiva e atenda às expectativas dos usuários. É importante realizar testes extensivos após a implementação dessas modificações para validar o desempenho do sistema.
 
 
 ## QUESTÃO 4: ##
