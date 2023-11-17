@@ -224,37 +224,13 @@ Para atender os requisitios e realizar uma query no banco com milhoes de linhas,
 
 ## QUESTÃO 4: ##
 
-Analisando o cenário proposto, há algumas potenciais vulnerabilidades de segurança que podem ser identificadas:
+Analisando o cenário proposto, existem potenciais vulnerabilidades de segurança que podem ser identificadas:
 
-Falta de Autenticação na Visualização de Boletos:
-    Problema: O fato de qualquer pessoa poder acessar um boleto apenas através do link, sem autenticação, pode representar uma vulnerabilidade. Isso significa que qualquer pessoa que tenha o link pode visualizar boletos de terceiros, incluindo informações sensíveis como CPF e endereço.
-    Possíveis danos: Exposição indevida de informações pessoais e financeiras dos clientes, violação de privacidade.
+    -  Falta de autenticação na visualização de boletos: O fato de qualquer pessoa poder acessar um boleto apenas através do link, sem autenticação, pode representar uma vulnerabilidade. Isso significa que qualquer pessoa que tenha o link pode visualizar informações sensíveis como CPF e endereço, gerando exposição indevida de informações pessoais e financeiras dos clientes, violação de privacidade. Com isso, deve implementar uma autenticação para acessar os boletos, seja por meio de login no site ou por um token seguro no link. Isso garantirá que apenas usuários autorizados tenham acesso aos boletos.
 
-Solução Proposta:
-    Implementar autenticação para acessar os boletos, seja por meio de login no site ou por um token seguro no link. Isso garantirá que apenas usuários autorizados tenham acesso aos boletos.
+    - Falta de controle de acesso de como o sistema controla o acesso aos boletos. Se não existir um controle, é possível que um usuário mal-intencionado consiga acessar boletos de outros clientes, manipulando o parâmetro 'id' nos endpoint e acessando informações confidenciais de outros clientes. Para resolver isso deve implementar um sistema, garantindo que cada cliente só possa acessar os boletos associados à sua conta.
 
-Falta de Controle de Acesso:
-    Problema: Não há indicação de como o sistema controla o acesso aos boletos. Se não houver um controle adequado, é possível que um usuário mal-intencionado consiga acessar boletos de outros clientes, manipulando o parâmetro 'id' nos endpoints.
-    Possíveis danos: Acesso não autorizado a informações confidenciais de outros clientes.
-
-Solução Proposta:
-    Implementar um sistema robusto de controle de acesso, garantindo que cada cliente só possa acessar os boletos associados à sua conta. Isso pode ser feito por meio de identificação e validação da sessão do usuário.
-
-Exposição de Informações Sensíveis nos Logs de Requisição:
-    Problema: Se as informações sensíveis, como CPF e endereço, estiverem presentes nos logs de requisição, eles podem ser alvo de acesso não autorizado ou vazamento de dados.
-    Possíveis danos: Divulgação indevida de informações sensíveis.
-
-Solução Proposta:
-    Certificar-se de que as informações sensíveis não são registradas nos logs. Caso necessário, implementar técnicas de logging seguro, como a remoção ou mascaramento automático de dados sensíveis.
-
-Falta de Criptografia na Comunicação:
-    Problema: Não há menção à segurança na comunicação entre o cliente e o servidor. Se a comunicação não for criptografada, as informações podem ser interceptadas por terceiros mal-intencionados.
-    Possíveis danos: Interceptação de dados confidenciais durante a transmissão.
-
-Solução Proposta:
-    Implementar SSL/TLS para criptografar a comunicação entre o cliente e o servidor, garantindo a segurança dos dados durante a transmissão.
-
-É crucial realizar uma auditoria de segurança abrangente, incluindo testes de penetração e revisões de código, para identificar e corrigir outras possíveis vulnerabilidades. Além disso, é importante manter o sistema e as práticas de segurança atualizadas para mitigar novas ameaças.
+    - Falta de criptografia na comunicação entre o cliente e o servidor. Se a comunicação não for criptografada, as informações podem ser interceptadas por terceiros durante a transmissão. Por isso, deve implementar SSL/TLS para criptografar a comunicação entre o cliente e o servidor, garantindo a segurança dos dados durante a transmissão.
 
 ## QUESTÃO 5: ##
 
